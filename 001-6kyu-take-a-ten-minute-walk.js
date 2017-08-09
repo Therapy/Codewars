@@ -1,5 +1,3 @@
-//jshint esversion: 6
-
 /*
 You live in the city of Cartesia where all roads are laid out in a perfect grid.
 You arrived ten minutes too early to an appointment, so you decided to take the
@@ -18,8 +16,8 @@ letters ('n', 's', 'e', or 'w' only). It will never give you an empty array
 */
 
 function isValidWalk(walk) {
-  //insert brilliant code here
   let result = 0;
+
   for (let dir of walk) {
     switch (dir) {
       case 'n':
@@ -36,5 +34,6 @@ function isValidWalk(walk) {
         break;
     }
   }
+
   return walk.length == 10 && result === 0;
 }
