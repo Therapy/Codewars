@@ -26,7 +26,7 @@ will fail if the solution code throws an exception, please keep that in mind. Th
 engine would simply ignore the tests, resulting in a "valid" solution.
 */
 
-decodeMorse = function(morseCode) {
+const decodeMorse = function(morseCode) {
   return morseCode.trim()
                   .split(/\s{3}/)
                   .map(word => word.split(/\s/)
