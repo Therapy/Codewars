@@ -43,15 +43,11 @@ skip checking for errors and exceptions, just do your best in figuring out what 
 function decodeBits(bits) {
   // trim leading and trailing 0s
   bits = bits.replace(/(^0+|0+$)/g, '');
-  let ones = bits.match(/(1+)/g) || 0; // array of 1s
-  let zeros = bits.match(/(0+)/g) || 0; // array of 0s
-  // find smallest sequence of 1s
-  if (ones.length) ones = ones.reduce((acc, cur) => Math.min(acc, cur.length), Number.MAX_VALUE);
-  // find smallest sequence of 0s
-  if (zeros.length) zeros = zeros.reduce((acc, cur) => Math.min(acc, cur.length), Number.MAX_VALUE);
+  // sequence of 0s or 1s
+  let sequence = bits.match(/0+|1+/g).map(seq => seq.length);
   // find transmission rate
-  let rate = (zeros == 0) ? ones : Math.min(ones, zeros);
-  // result
+  let rate = Math.min(Number.MAX_VALUE, ...sequence);
+
   return bits.replace(new RegExp(`${'0'.repeat(7 * rate)}`, 'g'), '   ')
              .replace(new RegExp(`${'0'.repeat(3 * rate)}`, 'g'), ' ')
              .replace(new RegExp(`${'1'.repeat(3 * rate)}`, 'g'), '-')

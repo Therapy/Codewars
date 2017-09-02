@@ -20,23 +20,19 @@ race(80, 91, 37) => [3, 21, 49]
 function race(v1, v2, g) {
   let speedDiff = Math.floor(3600 * g / (v2 - v1));
 
-  return v2 <= v1
-    ? null
-    : [
-        Math.floor(speedDiff / 3600),
-        Math.floor(speedDiff / 60) % 60,
-        speedDiff % 60,
-      ];
+  return  v2 <= v1 ? null : [
+                              Math.floor(speedDiff / 3600),
+                              Math.floor(speedDiff / 60) % 60,
+                              speedDiff % 60,
+                            ];
 }
 
 // another one solution
 function race(v1, v2, g) {
   let time = g / (v2 - v1);
-  return v2 > v1
-    ? [
-        Math.floor(time),
-        Math.floor(time * 60 % 60),
-        Math.floor(time * 3600 % 60),
-      ]
-    : null;
+  return  v2 > v1 ? [
+                      Math.floor(time),
+                      Math.floor(time * 60 % 60),
+                      Math.floor(time * 3600 % 60),
+                    ] : null;
 }

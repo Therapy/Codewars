@@ -26,11 +26,16 @@ will fail if the solution code throws an exception, please keep that in mind. Th
 engine would simply ignore the tests, resulting in a "valid" solution.
 */
 
-const decodeMorse = function(morseCode) {
+function decodeMorse(morseCode) {
   return morseCode.trim()
                   .split(/\s{3}/)
                   .map(word => word.split(/\s/)
                                    .map(symbol => MORSE_CODE[symbol])
                                    .join(''))
                   .join(' ');
-};
+}
+
+// another one solution
+function decodeMorse(morseCode) {
+  return morseCode.replace(/ ?[.-]+ ?/g, (e) => MORSE_CODE[e.trim()]).trim();
+}

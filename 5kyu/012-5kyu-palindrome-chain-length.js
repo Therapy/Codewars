@@ -24,7 +24,7 @@ function palindromeChainLength(n) {
 }
 
 // another one solution
-var palindromeChainLength = function(n) {
+function palindromeChainLength(n) {
   let r = 1 * ('' + n).split('').reverse().join('');
   return n - r && 1 + palindromeChainLength(r + n);
-};
+}
