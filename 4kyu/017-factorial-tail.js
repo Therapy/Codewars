@@ -36,7 +36,6 @@ function zeroes(base, number) {
       number = Math.floor(number / base);
       tail += number;
     }
-    return tail;
   } else {
     for (let i = 2; i <= base; i++) {
       if (primesArray.includes(i) && primeBase >= i) {
@@ -60,8 +59,8 @@ function zeroes(base, number) {
         tail = Math.min(tail, Math.floor(tailLocal));
       }
     }
-    return tail;
   }
+  return tail;
 }
 
 // another one solution
