@@ -103,8 +103,8 @@ Morse.encode = function(message) {
   let bits = message.trim()
                     .toUpperCase()
                     .split('')
-                    .map(e => (e === ' ' ? Morse.alpha[e].repeat(4) : Morse.alpha[e] + '0'.repeat(3)))
-                    .join('');
+                    .map(e => Morse.alpha[e])
+                    .join('0'.repeat(3));
   // add trailing 0s if needed
   bits = (bits.length % 32 === 0) ? bits : bits + '0'.repeat(32 - (bits.length % 32));
   // separate string and use bitwise NOT to return 32-bit integers
