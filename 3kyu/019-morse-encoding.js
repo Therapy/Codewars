@@ -112,19 +112,19 @@ Morse.encode = function(message) {
 };
 
 Morse.decode = function(integerArray) {
-  // convert 32-bit integers to bool string
-  return integerArray.map(e => {
-                           let res = (e >>> 0).toString(2);
-                           return res.length === 32 ? res : '0'.repeat(32 - res.length) + res;
-                         })
-                         .join('')
-                         .replace(/^0+|0+$/g, '')
-                         .split('0'.repeat(7)) // str += (word += char)
-                         .reduce((str, word) => {
-                           str += word.split('0'.repeat(3))
-                                      .map(char => Morse.bits[char]);
-                           return str + ' ';
-                         }, '').trim();
+  // convert 32-bit integers to bits
+let bits = integerArray.map(e => {
+                         let res = (e >>> 0).toString(2);
+                         return (res.length === 32) ? res : '0'.repeat(32 - res.length) + res;
+                       })
+                       .join('');
+
+return  bits.replace(/^0+|0+$/, '')
+            .split('0'.repeat(7)) // str += (word += char)
+            .reduce((str, word) => {
+             str += word.split('0'.repeat(3)).map(char => Morse.bits[char]);
+             return str + ' ';
+            }, '').trim();
 };
 
 // another one solution -----------------------------------------------------------------------
@@ -146,8 +146,7 @@ Morse.encode = function(message) {
 };
 
 Morse.decode = function(ints) {
-  let bits = ints.map(i => ('00000000000000000000000000000000' + (i >>> 0).toString(2))
-                                                                          .slice(-32))
+  let bits = ints.map(i => ('00000000000000000000000000000000' + (i >>> 0).toString(2)).slice(-32))
                  .join('');
 
   return bits.replace(/0+$/, '')

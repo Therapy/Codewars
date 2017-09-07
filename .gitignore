@@ -2,5 +2,8 @@ fizzbuzz.js
 factorial.js
 sum-all-primes.js
 hello-w...-wait-what.js
+sudoku-solver.cpp
+sudoku-solver.js
+sudoku-solver-es6-es7.js
 .jscsrc
 .jshintrc
