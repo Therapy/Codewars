@@ -1,4 +1,4 @@
-## Codewars problems
+## Codewars challenges
 
 Katas solutions
 
