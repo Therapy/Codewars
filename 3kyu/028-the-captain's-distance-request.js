@@ -57,11 +57,11 @@ function distance(coord1, coord2) {
   // use haversine formula
   lat1 = degToRads(strToDegs(lat1));
   lat2 = degToRads(strToDegs(lat2));
-  a = Math.sin(deltaLat/2) * Math.sin(deltaLat/2) + Math.cos(lat1) * Math.cos(lat2) * Math.sin(deltaLng/2) * Math.sin(deltaLng/2);
-  c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) + Math.cos(lat1) * Math.cos(lat2) * Math.sin(deltaLng / 2) * Math.sin(deltaLng / 2);
+  c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   d = EARTH_RADIUS * c;
 
-  return Math.floor(d/10) * 10;
+  return Math.floor(d / 10) * 10;
 }
 
 // another one solution (i dont know how to read this)
@@ -87,3 +87,30 @@ function distance(coord1, coord2) {
                floor( inverseHaversine(6300
                   + 71,  coord1,  coord2
                       ) / 10 ) * 10;
+
+// or readable one
+let distance = (
+  coord1,
+  coord2,
+  inverseHaversine = (
+    radius,
+    coord1,
+    coord2,
+    haversine = (
+      coord1,
+      coord2,
+      haversineTheta = (t) => Math.pow(Math.sin(t / 2), 2),
+      coordinateConvert = (s) => s.split(/,\s*/)
+        .map(s => s.split(/[^0-9A-Z]+/)
+          .reduce((r, i) => (i === 'N' || i === 'E')
+            ? r
+            : (i === 'S' || i === 'W')
+              ? -r
+              : (60 * Number(r) + Number(i))
+          ) / 3600 / 180 * Math.PI
+        ),
+      phi = coordinateConvert(coord1),
+      lambda = coordinateConvert(coord2)
+    ) => haversineTheta(lambda[0] - phi[0]) + Math.cos(phi[0]) * Math.cos(lambda[0]) * haversineTheta(lambda[1] - phi[1])
+  ) => 2 * radius * Math.asin(Math.sqrt(haversine(coord1, coord2)))
+) => coord1 === coord2 ? 0 : Math.floor(inverseHaversine(6371, coord1, coord2) / 10) * 10;
