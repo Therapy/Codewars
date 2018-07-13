@@ -101,10 +101,10 @@ const Morse = {};
 Morse.encode = function(message) {
   //convert string to bits
   let bits = message.trim()
-                    .toUpperCase()
-                    .split('')
-                    .map(e => Morse.alpha[e])
-                    .join('0'.repeat(3));
+    .toUpperCase()
+    .split('')
+    .map(e => Morse.alpha[e])
+    .join('0'.repeat(3));
   // add trailing 0s if needed
   bits = (bits.length % 32 === 0) ? bits : bits + '0'.repeat(32 - (bits.length % 32));
   // separate string and use bitwise NOT to return 32-bit integers
@@ -113,26 +113,27 @@ Morse.encode = function(message) {
 
 Morse.decode = function(integerArray) {
   // convert 32-bit integers to bits
-let bits = integerArray.map(e => {
-                         let res = (e >>> 0).toString(2);
-                         return (res.length === 32) ? res : '0'.repeat(32 - res.length) + res;
-                       })
-                       .join('');
+  let bits = integerArray.map(e => {
+    let res = (e >>> 0).toString(2);
+    return (res.length === 32) ? res : '0'.repeat(32 - res.length) + res;
+  })
+  .join('');
 
-return  bits.replace(/^0+|0+$/, '')
-            .split('0'.repeat(7)) // str += (word += char)
-            .reduce((str, word) => {
-             str += word.split('0'.repeat(3)).map(char => Morse.bits[char]);
-             return str + ' ';
-            }, '').trim();
+  return  bits.replace(/^0+|0+$/, '')
+    .split('0'.repeat(7)) // str += (word += char)
+    .reduce((str, word) => {
+      str += word.split('0'.repeat(3)).map(char => Morse.bits[char]);
+      return str + ' ';
+    }, '')
+    .trim();
 };
 
 // another one solution -----------------------------------------------------------------------
 Morse.encode = function(message) {
   let ints = [];
   let bits = message.split('')
-                    .map(c => Morse.alpha[c])
-                    .join('000');
+    .map(c => Morse.alpha[c])
+    .join('000');
 
   for (let i = 32 - (bits.length % 32); i--;) {
     bits += '0';
@@ -150,11 +151,11 @@ Morse.decode = function(ints) {
                  .join('');
 
   return bits.replace(/0+$/, '')
-             .split('0000000')
-             .map(word => word.split('000')
-                              .map(c => Morse.bits[c])
-                              .join(''))
-             .join(' ');
+    .split('0000000')
+    .map(word => word.split('000')
+      .map(c => Morse.bits[c])
+      .join(''))
+    .join(' ');
 };
 // ---------------------------------------------------------------------------------------------
 
